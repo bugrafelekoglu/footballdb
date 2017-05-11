@@ -1,37 +1,20 @@
-## Welcome to GitHub Pages
+### Course Information
+CS 353 - Database Systems Management
+Spring 2017
 
-You can use the [editor on GitHub](https://github.com/bugrafelekoglu/footballdb/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+### Group Members
+    Buğra Felekoğlu         21301200
+    Burak Gök               21302025
+    Umut Mücahit Köksaldı   21402234
+    Barış Poyraz            21401952
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Course Instructor
+Özgür Ulusoy
 
-### Markdown
+### Project Website
+[Football Database v1.0](http://bugra.felekoglu.ug.bilkent.edu.tr/footballdb/)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/bugrafelekoglu/footballdb/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### Files
+- [Project Proposal](https://drive.google.com/open?id=0B9wRM7mwf-UfNDdPaURmMXdNT0E)
+- [Design Report](https://drive.google.com/open?id=0B9wRM7mwf-UfNVdjU1BLenNMNUU)
+- [Final Report](https://drive.google.com/open?id=0B9wRM7mwf-UfUU1tLUlJTWdlMFU)
