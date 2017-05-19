@@ -1,4 +1,4 @@
-<?php
+<!--</*?php
     include("config.php");
     session.start();
 
@@ -35,8 +35,9 @@
             header("location: index_register.php");
         }
     }
-?>
+?*/>!-->
 
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -50,19 +51,19 @@
     <title>Football Database v1.0</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/login.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
     <!-- Bootstrap theme -->
-    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="theme.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="/js/ie-emulation-modes-warning.js"></script>
+    <script src="js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -261,89 +262,47 @@
                                     <th>Total Value</th>
                                 </tr>
                             </thead>
-                            <tbody style="text-align:left">
-                                <tr>
-                                    <td>Premier League</td>
-                                    <td>England</td>
-                                    <td>20</td>
-                                    <td>576</td>
-                                    <td>25.8</td>
-                                    <td>4.34 B €</td>
-                                </tr>
-                                <tr>
-                                    <td>La Liga</td>
-                                    <td>Spain</td>
-                                    <td>20</td>
-                                    <td>481</td>
-                                    <td>27.1</td>
-                                    <td>3.76 B €</td>
-                                </tr>
-                                <tr>
-                                    <td>1. Bundesliga</td>
-                                    <td>Germany</td>
-                                    <td>18</td>
-                                    <td>506</td>
-                                    <td>27.1</td>
-                                    <td>3.64 B €</td>
-                                </tr>
-                                <tr>
-                                    <td>Serie A</td>
-                                    <td>Italy</td>
-                                    <td>18</td>
-                                    <td>544</td>
-                                    <td>28.8</td>
-                                    <td>2.14 B €</td>
-                                </tr>
-                                <tr>
-                                    <td>Ligue 1</td>
-                                    <td>France</td>
-                                    <td>20</td>
-                                    <td>499</td>
-                                    <td>26.9</td>
-                                    <td>2.11 B €</td>
-                                </tr>
-                                <tr>
-                                    <td>Eredivisie</td>
-                                    <td>Netherlands</td>
-                                    <td>18</td>
-                                    <td>478</td>
-                                    <td>24.2</td>
-                                    <td>1.54 B €</td>
-                                </tr>
-                                <tr>
-                                    <td>Super Lig</td>
-                                    <td>Turkey</td>
-                                    <td>18</td>
-                                    <td>449</td>
-                                    <td>28.4</td>
-                                    <td>756.5 M €</td>
-                                </tr>
-                                <tr>
-                                    <td>Liga NOS</td>
-                                    <td>Portugal</td>
-                                    <td>18</td>
-                                    <td>510</td>
-                                    <td>29.3</td>
-                                    <td>650.3 M €</td>
-                                </tr>
-                                <tr>
-                                    <td>Premier Liga</td>
-                                    <td>Russia</td>
-                                    <td>16</td>
-                                    <td>410</td>
-                                    <td>28.1</td>
-                                    <td>503.2 M €</td>
-                                </tr>
-                                <tr>
-                                    <td>Jupiler Pro League</td>
-                                    <td>Belgium</td>
-                                    <td>16</td>
-                                    <td>411</td>
-                                    <td>25.4</td>
-                                    <td>430.2 M €</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            
+                            <!--</*?php
+                            
+                                echo "<tbody style= 'text-align:left'>";
+                            
+                                $top10Leagues = "CREATE VIEW leagues_top10(name,nation,total_value,team_count,player_count,avg_age)
+                                AS SELECT organization_name, nation, total_value, team_count, player_count, avg_age
+                                FROM organization NATURAL JOIN (
+                                    SELECT organization_id,nation, SUM(transfer_budget)+SUM(wage_budget) AS total_value
+                                    FROM organization NATURAL JOIN standings NATURAL JOIN club
+                                    GROUP BY(organization_id, nation))
+                                NATURAL JOIN(
+                                    SELECT organization_id, COUNT(*) AS player_count, AVG(age) AS avg_age
+                                    FROM (organization NATURAL JOIN standings NATURAL JOIN club) JOIN player ON club_id=team
+                                    GROUP BY organization_id)
+                                WHERE division like 'league%'
+                                ORDER BY total_value DESC
+                                LIMIT 10";
+                                
+                                $result = mysqli_query($db, $top10Leagues);
+                            
+                                while($row = mysql_fetch_array($result, MYSQL_ASSOC)){
+                                    $league = $row["organization_name"];
+                                    $country = $row["nation"];
+                                    $clubCount = $row["team_count"];
+                                    $playerCount = $row["player_count"];
+                                    $averageAge = $row["avg_age"];
+                                    $totalValue = $row["total_value"]
+                                        
+                                    echo "<tr>
+                                            <td>" .$league . "</td>
+                                            <td>" .$country . "</td>
+                                            <td>" .$clubCount . "</td>
+                                            <td>" .$playerCount . "</td>
+                                            <td>" .$averageAge . "</td>
+                                            <td>" .$totalValue . "</td>
+                                    </tr>";
+                                }
+                                echo "</tbody>";
+                                echo "</table>";
+                            ?> !-->
                     </div>
                 </div>
             </div>
@@ -355,19 +314,19 @@
 
                 <br>
                 <div style="text-align:center">
-                    <button type="button" class="btn btn-lg btn-primary" style="width:220px">Champions League</button>
+                    <a href="http://www.uefa.com/uefachampionsleague/" class="btn btn-lg btn-primary" target="_blank" style="width:220px">Champions League</a>
                     <p></p>
-                    <button type="button" class="btn btn-lg btn-success" style="width:220px">Europa League</button>
+                    <a href="http://www.uefa.com/uefaeuropaleague/" class="btn btn-lg btn-success" target="_blank" style="width:220px">Europa League</a>
                     <p></p>
-                    <button type="button" class="btn btn-lg btn-info" style="width:220px">FA Cup</button>
+                    <a href="http://www.thefa.com/competitions/thefacup" class="btn btn-lg btn-info" target="_blank" style="width:220px">FA Cup</a>
                     <p></p>
-                    <button type="button" class="btn btn-lg btn-warning" style="width:220px">Turkish Ziraat Cup</button>
+                    <a href="http://www.tff.org/Default.aspx?pageID=288" class="btn btn-lg btn-warning" target="_blank" style="width:220px">Turkish Ziraat Cup</a>
                     <p></p>
-                    <button type="button" class="btn btn-lg btn-success" style="width:220px">Super Cup</button>
+                    <a href="http://www.uefa.com/uefasupercup/" class="btn btn-lg btn-success" target="_blank" style="width:220px">Super Cup</a>
                     <p></p>
-                    <button type="button" class="btn btn-lg btn-primary" style="width:220px">Copa Del Rey</button>
+                    <a href="http://www.soccer24.com/spain/copa-del-rey/" class="btn btn-lg btn-primary" target="_blank" style="width:220px">Copa Del Rey</a>
                     <p></p>
-                    <button type="button" class="btn btn-lg btn-danger" style="width:220px">Coppa Italia</button>
+                    <a href="http://www.legaseriea.it/en/tim-cup/fixture-and-results" class="btn btn-lg btn-danger" target="_blank" style="width:220px">Coppa Italia</a>
                     <p></p>
                 </div>
             </div>
@@ -384,9 +343,9 @@
     <script>
         window.jQuery || document.write('<script src="/js/vendor/jquery.min.js"><\/script>')
     </script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/docs.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
