@@ -35,6 +35,43 @@
             header("location: index_register.php");
         }
     }
+
+    //REGISTER
+    if($isset($_SESSION['regUser])){
+        
+        //FULLNAME
+        
+        $fullName = trim($_POST['full_name']);
+        //$fullName = strip_tags($fullName);
+        //$fullName = htmlspecialchars($fullName);
+
+        //USERNAME
+        
+        $username = trim($_POST['user_name']);
+        //$username = strip_tags($fullName);
+        //$username = htmlspecialchars($fullName);
+
+        //EMAIL
+        
+        $email = trim($_POST['email']);
+        //$email = strip_tags($email);
+        //$email = htmlspecialchars($email);
+
+        //PASSWORD
+        
+        $password = trim($_POST['password']);
+        //$password = strip_tags($password);
+        //$password = htmlspecialchars($password);
+        
+        //CONFIRMPASSWORD
+        
+        $confirmPassword = trim($_POST['password_confirmation']);
+        //$confirmPassword = strip_tags($confirmPassword);
+        //$confirmPassword = htmlspecialchars($confirmPassword);
+
+        //TODO: VALIDATION
+        
+    }
 ?*/>!-->
 
 <!DOCTYPE html>
@@ -162,35 +199,35 @@
             <div class="modal-body modal-md">
                 <div class="row">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="margin-right:30px">
-                    X</button>
+                    </button>
                     <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-2 col-md-offset-1">
-                        <form role="form">
+                        <form method="post" action="" role="form">
                             <h2>Please Sign Up <small>Thanks.</small></h2>
                             <hr class="colorgraph">
                             <div class="form-group">
-                                <input type="text" name="full_name" id="full_name" class="form-control input-lg" placeholder="Full Name" tabindex="3">
+                                <input type="text" name="full_name" id="full_name" class="form-control input-lg" placeholder="Full Name" tabindex="3" 
                             </div>
                             <div class="form-group">
-                                <input type="text" name="user_name" id="user_name" class="form-control input-lg" placeholder="Username" tabindex="3">
+                                <input type="text" name="user_name" id="user_name" class="form-control input-lg" placeholder="Username" tabindex="3"
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+                                <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4"
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+                                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5"
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6"
                                     </div>
                                 </div>
                             </div>
                             <hr class="colorgraph" style="margin-top: 0px">
                             <div class="row">
-                                <div class="col-md-8 col-md-offset-2"><input type="submit" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
+                                <div class="col-md-8 col-md-offset-2"><input type="submit" name="regUser" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
                             </div>
                         </form>
                     </div>
@@ -235,8 +272,37 @@
             <h3 style="margin:20px">Then search: </h3>
 
             <div class="row marketing" style="margin:20px -8px">
-                <input type="text" class="form-control" placeholder="Type football player, team or organization..." style="font-size:30px;width: 80%; float:left; height:50px">
-                <button type="button" class="btn btn-danger" style="float: right; width:150px; height:50px; font-size:30px">
+                <form method="post" action="search.php?go" id="searchform">
+                <input type="text" name="search" class="form-control" placeholder="Type football player, team or organization..." style="font-size:30px;width: 80%; float:left; height:50px">    
+                <button type="button" name="searchSubmit" class="btn btn-danger" style="float: right; width:150px; height:50px; font-size:30px">
+                </form>
+                <?php
+                    if(isset($_POST['searchSubmit'])){
+                       if(isset($_GET['go'])){
+                           if(preg_match("^/[A-Za-z]+/", $_POST['search']))
+                               $doSearch = $_POST['search'];
+                       } 
+                        $searchQuery = "SELECT club_name, city, nation, transfer_budget, stadium, director
+                                            CASE WHEN " .$doSearch "=club_name
+                                                END
+                                        FROM club C;
+                                        SELECT player_name, year_birth, weight, height, position, foot, agent, value, team_name
+                                            CASE WHEN " .$doSearch "=player_name
+                                                END
+                                        FROM player P NATURAL JOIN club C
+                                        WHERE P.team = C.id;
+                                        SELECT agent.fullname, player.fulname
+                                            CASE WHEN " .$doSearch "=agent.fullname
+                                                END
+                                        FROM player P NATURAL JOIN agent A
+                                        WHERE P.agent = agent.id;
+                                        SELECT director.fullname, club_name
+                                            CASE WHEN " .$doSearch "=director.fullname
+                                                END
+                                        FROM clubdirector D, club C
+                                        WHERE D.id=C.director;"
+                    }
+                ?>
           <span class="glyphicon glyphicon-search" style="font-size:30px"></span>
         </button>
             </div>
