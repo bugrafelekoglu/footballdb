@@ -1,4 +1,4 @@
-<!--</*?php
+<!--<#?php
     include("config.php");
     session.start();
 
@@ -72,18 +72,16 @@
         //TODO: VALIDATION
         
     }
-?*/>!-->
+?>-->
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="favicon/favicon.ico">
 
     <title>Football Database v1.0</title>
 
@@ -92,25 +90,12 @@
     <link href="css/login.css" rel="stylesheet">
     <!-- Bootstrap theme -->
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="theme.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- Custom styles for this page -->
+    <link href="css/theme.css" rel="stylesheet">
+    <link href="css/register_pop.css" rel="stylesheet">
 </head>
 
 <body>
-
     <!-- Fixed navbar -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -179,19 +164,7 @@
 
         </div>
     </nav>
-<style>
-    /* Credit to bootsnipp.com for the css for the color graph */
-.colorgraph {
-  height: 5px;
-  border-top: 0;
-  background: #c4e17f;
-  border-radius: 5px;
-  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-}
-    </style>
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myMediumModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-md">
@@ -205,23 +178,23 @@
                             <h2>Please Sign Up <small>Thanks.</small></h2>
                             <hr class="colorgraph">
                             <div class="form-group">
-                                <input type="text" name="full_name" id="full_name" class="form-control input-lg" placeholder="Full Name" tabindex="3" 
+                                <input type="text" name="full_name" id="full_name" class="form-control input-lg" placeholder="Full Name" tabindex="3"> 
                             </div>
                             <div class="form-group">
-                                <input type="text" name="user_name" id="user_name" class="form-control input-lg" placeholder="Username" tabindex="3"
+                                <input type="text" name="user_name" id="user_name" class="form-control input-lg" placeholder="Username" tabindex="3">
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4"
+                                <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5"
+                                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6"
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
                                     </div>
                                 </div>
                             </div>
@@ -275,8 +248,8 @@
                 <form method="post" action="search.php?go" id="searchform">
                 <input type="text" name="search" class="form-control" placeholder="Type football player, team or organization..." style="font-size:30px;width: 80%; float:left; height:50px">    
                 <button type="button" name="searchSubmit" class="btn btn-danger" style="float: right; width:150px; height:50px; font-size:30px">
-                </form>
-                <?php
+                
+               <!-- <#?php
                     if(isset($_POST['searchSubmit'])){
                        if(isset($_GET['go'])){
                            if(preg_match("^/[A-Za-z]+/", $_POST['search']))
@@ -302,9 +275,10 @@
                                         FROM clubdirector D, club C
                                         WHERE D.id=C.director;"
                     }
-                ?>
+                ?>-->
           <span class="glyphicon glyphicon-search" style="font-size:30px"></span>
         </button>
+        </form>
             </div>
 
         </div>
@@ -329,7 +303,7 @@
                                 </tr>
                             </thead>
                             
-                            <!--</*?php
+                            <!--<#?php
                             
                                 echo "<tbody style= 'text-align:left'>";
                             
@@ -367,8 +341,9 @@
                                     </tr>";
                                 }
                                 echo "</tbody>";
-                                echo "</table>";
-                            ?> !-->
+                                
+                            ?>-->
+                        </table>
                     </div>
                 </div>
             </div>
@@ -405,13 +380,10 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>
-        window.jQuery || document.write('<script src="/js/vendor/jquery.min.js"><\/script>')
-    </script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/docs.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
