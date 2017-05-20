@@ -105,6 +105,6 @@
             exit();
         }
 
-        // header("location: index_register.php");
+        // header("location: index.php");
 
 ?>
