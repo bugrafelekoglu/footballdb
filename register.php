@@ -34,16 +34,43 @@
         $confirmPassword = htmlspecialchars($confirmPassword);
 
         //TODO: VALIDATION
-        $query = "INSERT INTO Person(username, password, email, fullname, nationality)
-                    VALUES ('$username', '$password', '$email', '$fullName', '')";
-
-        $result = mysqli_query($db, $query);
-        if($result){
-            echo "success";
-            header("location: index_fan.php");
-            $db->close();
-            echo "you registered";
-            exit();
-        }
+        $error = false;
+        //Email Validation
         
+        $emailQuery = "SELECT email FROM person WHERE email = '$email'";
+        $result = mysqli_query($db, $emailQuery);
+        $count = mysql_num_rows($result);
+
+        if(count != 0){
+            $error = true;
+            $emailFound = "Email that is provided is already in use";
+        }
+
+        
+        //Password & Confirm Password Validation
+        if($_POST['password'] != $_POST['password_confirmation']){
+            $error = true;
+            $passwordNotEqual = "Passwords should be same";
+        } 
+
+        //If there is no error
+        if(!$error){
+            $query = "INSERT INTO Person(username, password, email, fullname, nationality)
+                        VALUES ('$username', '$password', '$email', '$fullName', '')";
+
+            $result = mysqli_query($db, $query);
+            if($result){
+                echo "success";
+                
+                unset($fullname);
+                unset($username);
+                unset($password);
+                unset($email);
+                
+                header("location: index_fan.php");
+                $db->close();
+                echo "you registered";
+                exit();
+            }
+        }
 ?>
