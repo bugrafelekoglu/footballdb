@@ -1,9 +1,9 @@
-<!--<#?php
+<?php
     include("config.php");
-    session.start();
+    session_start();
 
     //LOGIN
-    if($isset($_SESSION['whoLogin'])){
+    if(isset($_SESSION['whoLogin'])){
         
         //Session Numbers:
         //1: Fan
@@ -37,7 +37,7 @@
     }
 
     //REGISTER
-    if($isset($_SESSION['regUser])){
+    if(isset($_SESSION['regUser'])){
         
         //FULLNAME
         
@@ -72,7 +72,7 @@
         //TODO: VALIDATION
         
     }
-?>-->
+?>
 
 <!DOCTYPE html>
 <html lang="en">
