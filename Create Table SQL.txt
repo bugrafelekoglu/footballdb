@@ -1,0 +1,231 @@
+CREATE TABLE Person(
+	person_id 	INT PRIMARY KEY AUTO_INCREMENT,
+	username 	VARCHAR(32) NOT NULL UNIQUE,
+	password 	VARCHAR(32) NOT NULL,
+	e-mail 		VARCHAR(32) NOT NULL UNIQUE,
+	fullname 	VARCHAR(32),
+	nationality VARCHAR(32));
+
+CREATE TABLE Fan(
+	fan_id 			INT PRIMARY KEY,
+	favourite_team 	INT,
+	FOREIGN KEY (fan_id) REFERENCES person(person_id),
+	FOREIGN KEY (favourite_team) REFERENCES club(club_id))
+	ENGINE = InnoDB;
+
+CREATE TABLE Agent(
+	agent_id 		INT PRIMARY KEY,
+	FOREIGN KEY (agent_id) REFERENCES person(person_id))
+	ENGINE = InnoDB;
+
+CREATE TABLE Coach(
+	coach_id 	INT PRIMARY KEY,
+	FOREIGN KEY (coach_id) REFERENCES person(person_id))
+	ENGINE = InnoDB;
+
+CREATE TABLE PlayerCoach(
+	playercoach_id 	INT PRIMARY KEY,
+	FOREIGN KEY (playercoach_id) REFERENCES coach(coach_id))
+	ENGINE = InnoDB;
+
+CREATE TABLE TeamCoach(
+	teamcoach_id	INT PRIMARY KEY,
+	FOREIGN KEY (teamcoach_id) REFERENCES coach(coach_id))
+	ENGINE = InnoDB;
+
+CREATE TABLE ClubDirector(
+	clubdirector_id 	INT PRIMARY KEY,
+	FOREIGN KEY (clubdirector_id) REFERENCES person(person_id))
+	ENGINE = InnoDB;
+
+CREATE TABLE Player(
+	player_id 	INT,
+	year_birth 	MEDIUMINT,
+	weight 		TINYINT,
+	height 		TINYINT,
+	team 		INT,
+	number 		TINYINT,
+	position 	ENUM("GK", "SW", "CB", "RB", "LB", "LWB", "RWB",
+				"DM", "CM", "AM", "RM", "LM", "LW", "SS", "RW", "CF"),
+	foot 		ENUM("left", "right", "both"),
+	agent 		INT,
+	coach 		INT,
+	wage 		INT,
+	value 		INT,
+	UNIQUE (team, number),
+	FOREIGN KEY (player_id) REFERENCES person(person_id),
+	FOREIGN KEY (team) REFERENCES club(club_id),
+	FOREIGN KEY (agent) REFERENCES agent(agent_id),
+	FOREIGN KEY (coach) REFERENCES coach(coach_id)) ENGINE = InnoDB;
+
+CREATE TABLE Club(
+	club_id			INT PRIMARY KEY,
+	club_name		VARCHAR(32) NOT NULL,
+	city			VARCHAR(32) NOT NULL,
+	color			VARCHAR(32) NOT NULL,
+	nation			VARCHAR(32) NOT NULL,
+	year_establish	DATE NOT NULL,
+	stadium			VARCHAR(32),
+	director		INT,
+	coach			INT,
+	transfer_budget INT,
+	wage_budget		INT,
+	avg_age			MEDIUMINT,
+	player_count	TINYINT,
+	FOREIGN KEY (director) REFERENCES ClubDirector(clubdirector_id),
+	FOREIGN KEY (coach) REFERENCES coach(coach_id))
+	ENGINE = InnoDB;
+
+    CREATE TABLE Offer(
+    offer_id        INT
+	player			INT,
+	team_sell		INT,
+	team_buy		INT,
+	offer_date		DATE,
+	transfer_fee	INT,
+	PRIMARY KEY (offer_id),
+	FOREIGN KEY (player) REFERENCES player(player_id),
+	FOREIGN KEY (team_sell) REFERENCES club(club_id),
+	FOREIGN KEY (team_buy) REFERENCES club(club_id))
+	ENGINE = InnoDB;
+
+    CREATE TABLE AgentSet(
+	player			INT,
+	team_sell 		INT,
+	team_buy		INT,
+	agent_date		DATE,
+    offer_id		INT,
+	wage_demand		INT,
+	PRIMARY KEY (offer_id),
+	FOREIGN KEY (player) REFERENCES player(player_id),
+	FOREIGN KEY (team_sell) REFERENCES club(club_id),
+	FOREIGN KEY (team_buy) REFERENCES club(club_id),
+	FOREIGN KEY (offer_id) REFERENCES offer(offer_id))
+	ENGINE = InnoDB;
+
+    CREATE TABLE Standings(
+	organization_id	INT,
+	club_id			INT,
+	matches			TINYINT,
+	won				TINYINT,
+	draw			TINYINT,
+	lost			TINYINT,
+	goals_for		TINYINT,
+	goals_against	TINYINT,
+	goal_diff		TINYINT,
+	point			TINYINT,
+	PRIMARY KEY (organization_id, club_id),
+	FOREIGN KEY (organization_id) REFERENCES organization(organization_id),
+	FOREIGN KEY (club_id) REFERENCES club(club_id)) ENGINE = InnoDB;
+
+    CREATE TABLE Contract(
+	player			INT,
+	team_sell		INT,
+	team_buy		INT,
+	contract_start	DATE,
+	contract_end	DATE,
+	transfer_fee	INT,
+	wage			INT,
+	termination_fee	INT,
+	PRIMARY KEY (player, team_sell, team_buy, contract_start),
+	UNIQUE (player, team_sell, team_buy, contract_end),
+	FOREIGN KEY (player) REFERENCES player(player_id),
+	FOREIGN KEY (team_sell) REFERENCES club(club_id),
+	FOREIGN KEY (team_buy) REFERENCES club(club_id))
+	ENGINE = InnoDB;
+
+    CREATE TABLE MatchTable(
+    	match_date			DATETIME,
+    	stadium				VARCHAR(32),
+    	organization		VARCHAR(32),
+    	organization_stage	VARCHAR(32),
+    	team1				INT,
+    	team2				INT,
+    	spectator_count		MEDIUMINT,
+    	referee				VARCHAR(32),
+    	referee_as1			VARCHAR(32),
+    	referee_as2			VARCHAR(32),
+    	referee_4th			VARCHAR(32),
+    	t1_score			TINYINT,
+    	t2_score			TINYINT,
+    	t1_ball_possession	TINYINT,
+    	t2_ball_possession	TINYINT,
+    	t1_shots			TINYINT,
+    	t2_shots			TINYINT,
+    	t1_shots_on_target	TINYINT,
+    	t2_shots_on_target	TINYINT,
+    	t1_pass_acc			TINYINT,
+    	t2_pass_acc			TINYINT,
+    	t1_fauls			TINYINT,
+    	t2_fauls			TINYINT,
+    	t1_formation		CHAR(5),
+    	t2_formation		CHAR(5),
+    	PRIMARY KEY (match_date, stadium),
+    	UNIQUE (match_date, team1, team2),
+    	FOREIGN KEY (stadium) REFERENCES club(stadium),
+    	FOREIGN KEY (team1) REFERENCES club(club_id),
+    	FOREIGN KEY (team2) REFERENCES club(club_id))
+    	ENGINE = InnoDB;
+
+
+    CREATE TABLE Stat(
+    	date			DATE,
+    	stadium			VARCHAR(32),
+    	player			INT,
+    	position		VARCHAR(3),
+    	enter_time		TIME,
+    	exit_time		TIME,
+    	play_time		TIME,
+    	passes			MEDIUMINT,
+    	shots			TINYINT,
+    	shots_on_target	TINYINT,
+    	PRIMARY KEY (date, stadium, player),
+    	FOREIGN KEY (date) 	REFERENCES match(date),
+    	FOREIGN KEY (stadium) REFERENCES match(stadium),
+    	FOREIGN KEY (player) REFERENCES player(player_id),
+    	FOREIGN KEY (position) REFERENCES player(position))
+    	ENGINE = InnoDB;
+
+        CREATE TABLE Organization(
+	organization_id		INT PRIMARY KEY,
+	organizer			VARCHAR(32) NOT NULL,
+	division			VARCHAR(32) NOT NULL,
+	organization_name	VARCHAR(32) NOT NULL,
+	sponsor				VARCHAR(32),
+	team_count			TINYINT,
+	start_date			DATE,
+	end_date			DATE);
+
+
+    CREATE TABLE Disciplinary(
+	disciplinary_date	DATE,
+	stadium		VARCHAR(32),
+	disciplinary_time		TIME,
+	player		INT,
+	card		VARCHAR(6),
+	PRIMARY KEY (disciplinary_date, stadium, disciplinary_time, player),
+	FOREIGN KEY (player) REFERENCES player(player_id))
+	ENGINE = InnoDB;
+
+    CREATE TABLE Goal(
+	goal_date		DATETIME,
+	stadium		VARCHAR(32),
+	goal_time		TIME,
+	player		INT,
+	assisted_by	INT,
+	own_goal	BIT(1),
+	penalty		BIT(1),
+	PRIMARY KEY (goal_date, stadium, goal_time),
+	FOREIGN KEY (player) REFERENCES player(player_id),
+	FOREIGN KEY (assisted_by) REFERENCES player(player_id))
+	ENGINE = InnoDB;
+
+    CREATE TABLE Injury(
+	player_id		INT,
+	injury_date			DATETIME,
+	injury_time			TIME,
+	diagnosis		VARCHAR(32),
+	recovery_time	CHAR(10),
+	PRIMARY KEY (player_id, injury_date, injury_time),
+	FOREIGN KEY (player_id) REFERENCES player(player_id))
+	ENGINE = InnoDB;
