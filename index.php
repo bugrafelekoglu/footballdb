@@ -32,7 +32,7 @@
             header("location: index_player.php");
         }
         else{
-            header("location: index_register.php");
+            header("location: index.php");
         }
     }
 
@@ -175,7 +175,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="margin-right:30px">
                     </button>
                     <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-2 col-md-offset-1">
-                        <form method="post" action="index_register.php" role="form">
+                        <form method="post" action="index.php" role="form">
                             <h2>Please Sign Up <small>Thanks.</small></h2>
                             <hr class="colorgraph">
                             <div class="form-group">
