@@ -32,47 +32,10 @@
             header("location: index_player.php");
         }
         else{
-            header("location: index.php");
+            header("location: index_register.php");
         }
     }
 
-    //REGISTER
-    if(isset($_SESSION['regUser'])){
-
-        //FULLNAME
-
-        $fullName = trim($_POST['full_name']);
-        //$fullName = strip_tags($fullName);
-        //$fullName = htmlspecialchars($fullName);
-
-        //USERNAME
-
-        $username = trim($_POST['user_name']);
-        //$username = strip_tags($fullName);
-        //$username = htmlspecialchars($fullName);
-
-        //EMAIL
-
-        $email = trim($_POST['email']);
-        //$email = strip_tags($email);
-        //$email = htmlspecialchars($email);
-
-        //PASSWORD
-
-        $password = trim($_POST['password']);
-        //$password = strip_tags($password);
-        //$password = htmlspecialchars($password);
-
-        //CONFIRMPASSWORD
-
-        $confirmPassword = trim($_POST['password_confirmation']);
-        //$confirmPassword = strip_tags($confirmPassword);
-        //$confirmPassword = htmlspecialchars($confirmPassword);
-
-        //TODO: VALIDATION
-        $query = "INSERT INTO Person(username, password, email, fullname, nationality)
-                    VALUES ('$username', '$password', '$email', '$fullName', '')";
-    }
 ?>
 
 <!DOCTYPE html>
@@ -175,7 +138,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="margin-right:30px">
                     </button>
                     <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-2 col-md-offset-1">
-                        <form method="post" action="index.php" role="form">
+                        <form method="post" action="register.php" role="form">
                             <h2>Please Sign Up <small>Thanks.</small></h2>
                             <hr class="colorgraph">
                             <div class="form-group">
