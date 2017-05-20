@@ -4,7 +4,7 @@
 
     //LOGIN
     if(isset($_SESSION['whoLogin'])){
-        
+
         //Session Numbers:
         //1: Fan
         //2: Director
@@ -12,9 +12,9 @@
         //4: Player Coach
         //5: Agent
         //6: Player
-        
+
         if($_SESSION['whoLogin'] == 1){
-            header("location: index_fan.php");   
+            header("location: index_fan.php");
         }
         else if($_SESSION['whoLogin'] == 2){
             header("location: index_clubdirector.php");
@@ -38,39 +38,40 @@
 
     //REGISTER
     if(isset($_SESSION['regUser'])){
-        
+
         //FULLNAME
-        
+
         $fullName = trim($_POST['full_name']);
         //$fullName = strip_tags($fullName);
         //$fullName = htmlspecialchars($fullName);
 
         //USERNAME
-        
+
         $username = trim($_POST['user_name']);
         //$username = strip_tags($fullName);
         //$username = htmlspecialchars($fullName);
 
         //EMAIL
-        
+
         $email = trim($_POST['email']);
         //$email = strip_tags($email);
         //$email = htmlspecialchars($email);
 
         //PASSWORD
-        
+
         $password = trim($_POST['password']);
         //$password = strip_tags($password);
         //$password = htmlspecialchars($password);
-        
+
         //CONFIRMPASSWORD
-        
+
         $confirmPassword = trim($_POST['password_confirmation']);
         //$confirmPassword = strip_tags($confirmPassword);
         //$confirmPassword = htmlspecialchars($confirmPassword);
 
         //TODO: VALIDATION
-        
+        $query = "INSERT INTO Person(username, password, email, fullname, nationality)
+                    VALUES ('$username', '$password', '$email', '$fullName', '')";
     }
 ?>
 
@@ -131,18 +132,18 @@
                             <li>
                                 <div class="row" style="width: 200px">
                                     <div class="col-md-12">
-                                        <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                        <form class="form" role="form" method="post" action="login.php" accept-charset="UTF-8" id="login-nav">
                                             <div class="form-group">
                                                 <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="EmailUsername" required>
+                                                <input type="text" name="emailInput" class="form-control" id="exampleInputEmail2" placeholder="EmailUsername" required>
                                             </div>
                                             <div class="form-group">
                                                 <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                                                <input type="password" name="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
                                                 <div class="help-block text-right"><a href="">Forget the password?</a></div>
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                                <button type="submit" name="SignIn" class="btn btn-primary btn-block">Sign in</button>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
@@ -174,11 +175,11 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="margin-right:30px">
                     </button>
                     <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-2 col-md-offset-1">
-                        <form method="post" action="" role="form">
+                        <form method="post" action="index_register.php" role="form">
                             <h2>Please Sign Up <small>Thanks.</small></h2>
                             <hr class="colorgraph">
                             <div class="form-group">
-                                <input type="text" name="full_name" id="full_name" class="form-control input-lg" placeholder="Full Name" tabindex="3"> 
+                                <input type="text" name="full_name" id="full_name" class="form-control input-lg" placeholder="Full Name" tabindex="3">
                             </div>
                             <div class="form-group">
                                 <input type="text" name="user_name" id="user_name" class="form-control input-lg" placeholder="Username" tabindex="3">
@@ -246,15 +247,15 @@
 
             <div class="row marketing" style="margin:20px -8px">
                 <form method="post" action="search.php?go" id="searchform">
-                <input type="text" name="search" class="form-control" placeholder="Type football player, team or organization..." style="font-size:30px;width: 80%; float:left; height:50px">    
+                <input type="text" name="search" class="form-control" placeholder="Type football player, team or organization..." style="font-size:30px;width: 80%; float:left; height:50px">
                 <button type="button" name="searchSubmit" class="btn btn-danger" style="float: right; width:150px; height:50px; font-size:30px">
-                
+
                <!-- <#?php
                     if(isset($_POST['searchSubmit'])){
                        if(isset($_GET['go'])){
                            if(preg_match("^/[A-Za-z]+/", $_POST['search']))
                                $doSearch = $_POST['search'];
-                       } 
+                       }
                         $searchQuery = "SELECT club_name, city, nation, transfer_budget, stadium, director
                                             CASE WHEN " .$doSearch "=club_name
                                                 END
@@ -302,11 +303,11 @@
                                     <th>Total Value</th>
                                 </tr>
                             </thead>
-                            
+
                             <!--<#?php
-                            
+
                                 echo "<tbody style= 'text-align:left'>";
-                            
+
                                 $top10Leagues = "CREATE VIEW leagues_top10(name,nation,total_value,team_count,player_count,avg_age)
                                 AS SELECT organization_name, nation, total_value, team_count, player_count, avg_age
                                 FROM organization NATURAL JOIN (
@@ -320,9 +321,9 @@
                                 WHERE division like 'league%'
                                 ORDER BY total_value DESC
                                 LIMIT 10";
-                                
+
                                 $result = mysqli_query($db, $top10Leagues);
-                            
+
                                 while($row = mysql_fetch_array($result, MYSQL_ASSOC)){
                                     $league = $row["organization_name"];
                                     $country = $row["nation"];
@@ -330,7 +331,7 @@
                                     $playerCount = $row["player_count"];
                                     $averageAge = $row["avg_age"];
                                     $totalValue = $row["total_value"]
-                                        
+
                                     echo "<tr>
                                             <td>" .$league . "</td>
                                             <td>" .$country . "</td>
@@ -341,7 +342,7 @@
                                     </tr>";
                                 }
                                 echo "</tbody>";
-                                
+
                             ?>-->
                         </table>
                     </div>
