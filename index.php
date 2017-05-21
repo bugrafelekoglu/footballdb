@@ -2,6 +2,18 @@
     include("config.php");
     session_start();
 
+    //Register and login errors
+    if(isset($_SESSION['errorMessage'])) {
+        if($_SESSION['errorMessage'] == '1'){
+            echo '<script type="text/javascript">';
+            echo 'alert("Invalid e-mail address!") </script>';
+        }
+        if($_SESSION['errorMessage'] == '2'){
+            echo '<script type="text/javascript">';
+            echo 'alert("Uername or e-mail already in use!") </script>';
+        }
+    }
+
     //LOGIN
     if(isset($_SESSION['whoLogin'])){
 
@@ -142,29 +154,29 @@
                             <h2>Please Sign Up <small>Thanks.</small></h2>
                             <hr class="colorgraph">
                             <div class="form-group">
-                                <input type="text" name="full_name" id="full_name" class="form-control input-lg" placeholder="Full Name" tabindex="3">
+                                <input type="text" name="full_name" id="full_name" class="form-control input-lg" placeholder="Full Name" tabindex="3" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="user_name" id="user_name" class="form-control input-lg" placeholder="Username" tabindex="3">
+                                <input type="text" name="user_name" id="user_name" class="form-control input-lg" placeholder="Username" tabindex="3" required>
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+                                <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4" required>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+                                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5" required>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6" required>
                                     </div>
                                 </div>
                             </div>
                             <hr class="colorgraph" style="margin-top: 0px">
                             <div class="row">
-                                <div class="col-md-8 col-md-offset-2"><input type="submit" name="regUser" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
+                                <div class="col-md-8 col-md-offset-2"><input type="submit" name="regUser" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7" requiredß></div>
                             </div>
                         </form>
                     </div>
