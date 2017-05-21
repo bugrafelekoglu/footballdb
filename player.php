@@ -68,7 +68,7 @@
                 ?>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b> <?php echo $_SESSION['user']; ?> </b> 
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="width:150px;white-space: nowrap;overflow: hidden; text-overflow: ellipsis"><b> <?php echo $_SESSION['user']; ?> </b> 
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu" style="padding: 10px; width:50%; text-align:right">
                             <div style="width: 100px; margin: 1px 10px 10px 20px">
@@ -98,11 +98,21 @@
         <div class="col-lg-12 col-sm-12">
             <div class="card hovercard" style="height: 370px; text-shadow: 2px 2px 4px #000000; background: linear-gradient(to right, #193155 0%,#193155 50%,#F3E508 50%,#F3E508 100%)">
                 <div class="card-background">
-                    <button type="submit" class="btn btn-primary" style=" width:180px; margin-left:900px"><span class="glyphicon glyphicon-pencil" style="margin:1px 5px 1px 1px"></span> Suggest Correction</button>
-                    <button type="submit" class="btn btn-primary" style=" width:180px;height:50px;font-size:20px; margin-left:900px;margin-top:285px"><span class="glyphicon glyphicon-pencil" style="margin:1px 5px 1px 1px"></span> Make Offer</button>
+                    <?php 
+                        if(isset($_SESSION['whoLogin'])) {
+                    ?>
+                        <button type="submit" class="btn btn-primary" style=" width:180px; margin-left:900px"><span class="glyphicon glyphicon-pencil" style="margin:1px 5px 1px 1px"></span> Suggest Correction</button>
+                        <?php 
+                        if($_SESSION['whoLogin'] == 2) {
+                            ?>
+                            <button type="submit" class="btn btn-primary" style=" width:180px;height:50px;font-size:20px; margin-left:900px;margin-top:285px"><span class="glyphicon glyphicon-pencil" style="margin:1px 5px 1px 1px"></span> Make Offer</button>
+
+                    <?php 
+                        }}
+                    ?>
                 </div>
                 <div class="useravatar" style="width:400px; margin:auto">
-                    <img alt="" src="assets/pic/lens300.png">
+                    <img alt="" src="images/lens300.png">
                 </div>
                 <div class="card-info" style="width:400px; margin:auto"> <span class="card-title" style="color:white; font-size: 30px">Jeremain Lens</span>
 
