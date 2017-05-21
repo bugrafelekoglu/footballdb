@@ -5,8 +5,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -76,28 +75,29 @@
           <span class="glyphicon glyphicon-search"></span> Find
         </button>
                 </form>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right " style= "">
                     <li class="dropdown">
                         <?php
-                            $clubDirectorQuery = "SELECT fullname, person_id FROM person WHERE email = '" .$_SESSION['user'] . "'";
-                            $result = mysqli_query($db, $clubDirectorQuery);
+                            $teamCoachQuery = "SELECT fullname, person_id FROM person WHERE email = '" .$_SESSION['user'] . "'";
+                            $result = mysqli_query($db, $teamCoachQuery);
                             $row = mysqli_fetch_array($result, MYSQL_ASSOC);
-                            $clubDirectorName = $row['fullname'];
+                            $teamCoachName = $row['fullname'];
                         
-                            echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'><b>" .$clubDirectorName . "</b> <span class='caret'></span></a>";
+                            echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'><b>" .$teamCoachName . "</b> <span class='caret'></span></a>";
                         ?>
+                        
                         <ul class="dropdown-menu" style="padding: 10px; width:50%; text-align:right">
-                            <div style="width: 100px; margin: 1px 10px 10px 20px">
+                             <div style="width: 100px; margin: 1px 10px 10px 20px">
                                 <button type="submit" class="btn btn-primary" style=" width:100px"><span class="glyphicon glyphicon-user" style="margin:1px 5px 1px 1px"></span> Profile</button>
 
                             </div>
                             <p></p>
+                            <form action="logout.php">
                             <div style="width: 100px; margin: 1px 10px 10px 20px">
-                                <form action="logout.php">
                                 <button type="submit" class="btn btn-danger" style=" width:100px"><span class="glyphicon glyphicon-log-out" style="margin:1px 5px 1px 1px"></span> Log out</button>
-                                    </form>
 
                             </div>
+                                </form>
 
                         </ul>
                     </li>
@@ -116,55 +116,49 @@
   border-radius: 10px ;
   z-index: -1;"></div>
         <div class="jumbotron" style="background: rgba(245, 245, 245, 0.6)">
-            <h1><span class="glyphicon glyphicon-heart" style="color: transparent;  border-style: outset; background: linear-gradient(to right, #193155 0%,#193155 50%,#2989d8 50%,#F3E508 50%,#F3E508 100%)"></span> <span style="text-decoration: underline"> 
+            <h1><span class="glyphicon glyphicon-heart" style="color: transparent;  border-style: outset; background: linear-gradient(to right, #000000 0%,#000000 50%,#2989d8 50%,#ffffff 50%,#ffffff 100%)"></span> <span style="text-decoration: underline">
                 
                 <?php
-                    $teamNameQuery = "SELECT club_name FROM club WHERE director = '" .$row['person_id'] . "'";
-                    $result = mysqli_query($db, $teamNameQuery);
-                    $row = mysqli_fetch_array($result, MYSQL_ASSOC);
-                    $clubName = $row['club_name'];
+                    $teamInfo = "SELECT * FROM club C, person P WHERE P.person_id = C.coach AND email= '" .$_SESSION['user'] . "'";
+                    $resultInfo = mysqli_query($db, $teamInfo);
+                    $rowInfo = mysqli_fetch_array($resultInfo, MYSQL_ASSOC);
                 
-                    echo "" .$clubName . "</span> <h1>";
+                    //Team Name
+                    $teamName = $rowInfo['club_name'];
+                    //City
+                    $teamCity = $rowInfo['city'];
+                    //Nation
+                    $teamNation = $rowInfo['nation'];
+                    //Stadium
+                    $teamStadium = $rowInfo['stadium'];
+                    //Team Value
+                    $teamValue = $rowInfo['transfer_budget'];
+                    
+                    echo $teamName . "</span> </h1>";
                 ?>
                 
             <div class="row marketing">
                 <div class="col-lg-6">
                     <h3>City:</h3>
                     <h1 style="font-size:50px">
-                        
                         <?php
-                            $cityQuery = "SELECT city FROM club WHERE club_name = '" .$clubName . "'";
-                            $resultCity = mysqli_query($db, $cityQuery);
-                            $rowCity = mysqli_fetch_array($resultCity, MYSQL_ASSOC);
-                            $cityName = $rowCity['city'];
-                        
-                            echo "<span class='label label-default'>" .$cityName . "</span>";
+                            echo "<span class='label label-default'>" .$teamCity . "</span";
                         ?>
                     </h1>
                     <br>
 
                     <h3>Country:</h3>
                     <h2 style="font-size:50px">
-                            <?php
-                                $countryQuery = "SELECT nation FROM club WHERE club_name = '" .$clubName . "'";
-                                $resultCountry = mysqli_query($db, $countryQuery);
-                                $rowCountry = mysqli_fetch_array($resultCountry, MYSQL_ASSOC);
-                                $countryName = $rowCountry['nation'];
-                        
-                                echo "<span class='label label-danger'> " .$countryName . "</span>";
-                            ?>
+                        <?php
+                            echo "<span class='label label-danger'>" .$teamNation . "</span>";
+                        ?>
                     </h2>
                     <br>
                     <h3>Stadium:</h3>
                     <h2 style="font-size:50px">
-                            <?php
-                                $stadiumQuery = "SELECT stadium FROM club WHERE club_name = '" .$clubName . "'";
-                                $resultStadium = mysqli_query($db, $stadiumQuery);
-                                $rowStadium = mysqli_fetch_array($resultStadium, MYSQL_ASSOC);
-                                $stadiumName = $rowStadium['stadium'];
-                        
-                                echo "<span class='label label-warning'> " .$stadiumName . "</span>";
-                            ?>
+                        <?php
+                            echo "<span class='label label-warning'>" .$teamStadium . "</span>";
+                        ?>
                     </h2>
                 </div>
 
@@ -172,35 +166,33 @@
                     <h3>Team Value:</h3>
                     <h2 style="font-size:50px">
                         <?php
-                                //TODO: SUM TRANSFER BUDGET AND WAGE BUDGET
-                                $teamValueQuery = "SELECT transfer_budget FROM club WHERE club_name = '" .$clubName . "'";
-                                $resultTeamValue = mysqli_query($db, $teamValueQuery);
-                                $rowTeamValue = mysqli_fetch_array($resultTeamValue, MYSQL_ASSOC);
-                                $teamValue = $rowTeamValue['transfer_budget'];
-                        
-                                echo "<span class='label label-info'> " .$teamValue . " Million € </span>";
-                            ?>
+                            echo "<span class='label label-info'>" .$teamValue . " Million €</span>";
+                        ?>
                     </h2>
                     <br>
 
                     <h3>Team Coach:</h3>
                     <h2 style="font-size:50px">
                         <?php
+                            $teamCoachQuery = "SELECT P.fullname FROM person P, club C WHERE C.coach = P.person_id AND email= '" .$_SESSION['user'] . "'";
+                            $resultTeamCoach = mysqli_query($db, $teamCoachQuery);
+                            $rowTeamCoach = mysqli_fetch_array($resultTeamCoach, MYSQL_ASSOC);
                                 
-                                $teamCoachQuery = "SELECT P.fullname FROM club C, person P WHERE C.coach = P.person_id AND 
-                                club_name = '" .$clubName . "'";
-                                $resultTeamCoach = mysqli_query($db, $teamCoachQuery);
-                                $rowTeamCoach = mysqli_fetch_array($resultTeamCoach, MYSQL_ASSOC);
-                                $teamCoach = $rowTeamCoach['fullname'];
-                        
-                                echo "<span class='label label-success'> " .$teamCoach . "</span>";
-                            ?>
+                            $teamCoachName = $rowTeamCoach['fullname'];
+                            echo "<span class='label label-success'>" .$teamCoachName . "</span>";
+                        ?>
                     </h2>
                     <br>
                     <h3>Club Director:</h3>
                     <h2 style="font-size:50px">
-                       <?php
-                            echo "<span class='label label-primary'>" .$clubDirectorName ."</span>";
+                        <?php
+                            $clubDirectorQuery = "SELECT P.fullname FROM person P WHERE email='" .$_SESSION['user'] . "'";
+                            $resultClubDirector = mysqli_query($db, $clubDirectorQuery);
+                            $rowClubDirector = mysqli_fetch_array($resultClubDirector, MYSQL_ASSOC);
+                        
+                            $clubDirectorName = $rowClubDirector['fullname'];
+                        
+                            echo "<span class='label label-primary'>" .$clubDirectorName . "'";
                         ?>
                     </h2>
                 </div>
@@ -217,7 +209,7 @@
         <div style="width: 100%; overflow: hidden;">
             <div class="panel panel-primary" style="width:700px; float:left">
                 <div class="panel-heading">
-                    <h1 class="panel-title" style="font-size:50px">2016-17 Türkiye Süper Ligi</h1>
+                    <h1 class="panel-title" style="font-size:50px">Süper Lig: 16-17</h1>
                 </div>
                 <div class="panel-body" style="text-align:center;margin: auto;width: 100%;   padding: 10px;">
                     <div class="col-md-6" style="width:100%">
@@ -237,7 +229,7 @@
                                 </tr>
                             </thead>
                             <tbody style="text-align:center">
-                                <tr>
+                                <tr style="background: #DBEEF3">
                                     <td>1</td>
                                     <td style="text-align: left">Beşiktaş</td>
                                     <td>27</td>
@@ -273,7 +265,7 @@
                                     <td>+22</td>
                                     <td>49</td>
                                 </tr>
-                                <tr style="background: #DBEEF3">
+                                <tr>
                                     <td>4</td>
                                     <td style="text-align: left">Fenerbahçe</td>
                                     <td>26</td>
@@ -285,44 +277,11 @@
                                     <td>+22</td>
                                     <td>47</td>
                                 </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td style="text-align: left">Trabzonspor</td>
-                                    <td>27</td>
-                                    <td>13</td>
-                                    <td>5</td>
-                                    <td>9</td>
-                                    <td>31</td>
-                                    <td>27</td>
-                                    <td>+4</td>
-                                    <td>44</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td style="text-align: left">Antalyaspor</td>
-                                    <td>27</td>
-                                    <td>12</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>32</td>
-                                    <td>32</td>
-                                    <td>0</td>
-                                    <td>43</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td style="text-align: left">Konyaspor</td>
-                                    <td>26</td>
-                                    <td>10</td>
-                                    <td>8</td>
-                                    <td>8</td>
-                                    <td>31</td>
-                                    <td>32</td>
-                                    <td>-1</td>
-                                    <td>38</td>
-                                </tr>
+
                             </tbody>
                         </table>
+
+
                         <h3 class="glyphicon glyphicon-chevron-down" style="margin:-10px "></h3>
                     </div>
                 </div>
@@ -369,5 +328,4 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
 </body>
-
 </html>
