@@ -1,21 +1,27 @@
 <?php
     include("config.php");
-
+    session_start();
     echo "login successful";
     //LOGIN
 
+    $_SESSION['whoLogin'] = null;
         // Username & Password
         echo "isset";
         $username = mysqli_real_escape_string($db, $_POST['emailInput']);
         $password = mysqli_real_escape_string($db, $_POST['password']);
 
         //SQL Code
-        $sqlFan = "SELECT person_id FROM person WHERE email = '$username' and password = '$password'";
-        $sqlDirector = "SELECT id FROM person WHERE username = '$username' and password = '$password'";
-        $sqlTeamCoach = "SELECT id FROM teamCoach WHERE username = '$username' and password = '$password'";
-        $sqlPlayerCoach = "SELECT id FROM playerCoach WHERE username = '$username' and password = '$password'";
-        $sqlAgent = "SELECT id FROM agent WHERE username = '$username' and password = '$password'";
-        $sqlPlayer = "SELECT id FROM player WHERE username = '$username' and password = '$password'";
+        $sqlFan = "SELECT F.fan_id FROM fan F, person P WHERE P.person_id = F.fan_id AND (email = '$username' and password = '$password') or (username = '$username' and password = '$password')";
+
+$sqlDirector = "SELECT C.clubdirector_id, P.fullname FROM person P, clubdirector C WHERE P.person_id = C.clubdirector_id AND email = '$username' AND password = '$password'";
+
+        $sqlTeamCoach = "SELECT T.teamcoach_id, P.fullname FROM teamCoach T, person P WHERE P.person_id = T.teamcoach_id AND (email = '$username' and password = '$password') or (username = '$username' and password = '$password')";
+
+        $sqlPlayerCoach = "SELECT PC.playercoach_id, P.fullname FROM playerCoach PC, person P WHERE P.person_id = PC.playerCoach_id AND (email = '$username' and password = '$password') or (username = '$username' and password = '$password')";
+
+        $sqlAgent = "SELECT id FROM agent WHERE (email = '$username' and password = '$password') or (username = '$username' and password = '$password')";
+
+        $sqlPlayer = "SELECT player_id, P.fullname FROM player PL, person P WHERE P.person_id = PL.player_id AND (email = '$username' and password = '$password') or (username = '$username' and password = '$password')";
 
         //Session Numbers:
         //1: Fan
