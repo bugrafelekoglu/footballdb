@@ -198,22 +198,19 @@
             <h1 style="margin:-10px">Welcome to Football Database </h1>
             <h3 style="margin:20px">Choose one topic: </h3>
             <div class="row marketing" style="margin:-30px 0px -20px -20px">
-
+                <form method="post" action="search_result.php" id="searchform">
                 <div class="btn-group" data-toggle="buttons" style="width:900px; margin: 35px 75px">
                     <label class="btn btn-warning btn-lg active" style="font-size:40px; width:180px">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Player
+                    <input type="radio" name="options" value="player" autocomplete="off" checked> Player
                   </label>
                     <label class="btn btn-danger btn-lg" style="font-size:40px; width:160px">
-                    <input type="radio" name="options" id="option2" autocomplete="off"> Club
+                    <input type="radio" name="options" value="club" autocomplete="off"> Club
                   </label>
                     <label class="btn btn-success btn-lg" style="font-size:40px; width:220px">
-                    <input type="radio" name="options" id="option3" autocomplete="off"> League
-                  </label>
-                    <label class="btn btn-info btn-lg" style="font-size:40px; width:150px">
-                    <input type="radio" name="options" id="option3" autocomplete="off"> Cup
+                    <input type="radio" name="options" value="league" autocomplete="off"> League
                   </label>
                     <label class="btn btn-primary btn-lg" style="font-size:40px;width:190px">
-                    <input type="radio" name="options" id="option3" autocomplete="off"> Match
+                    <input type="radio" name="options" value="match" autocomplete="off"> Match
                   </label>
                 </div>
 
@@ -221,7 +218,7 @@
             <h3 style="margin:20px">Then search: </h3>
 
             <div class="row marketing" style="margin:20px -8px">
-                <form method="post" action="search.php?go" id="searchform">
+
                 <input type="text" name="search" class="form-control" placeholder="Type football player, team or organization..." style="font-size:30px;width: 80%; float:left; height:50px">
                 <button type="button" name="searchSubmit" class="btn btn-danger" style="float: right; width:150px; height:50px; font-size:30px">
 
@@ -273,52 +270,38 @@
                                     <th>League</th>
                                     <th>Country</th>
                                     <th>Clubs</th>
-                                    <th>Players</th>
-                                    <th>Avg Age</th>
                                     <th>Total Value</th>
+
+                                    <?php
+                                    echo "<tbody style= 'text-align:left'>";
+
+                                    $query = "SELECT * FROM organization group by value desc";
+
+                                    $result = mysqli_query($db, $query);
+
+                                    while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                                        $league = $row["organization_name"];
+                                        $country = $row["organizer"];
+                                        $clubCount = $row["team_count"];
+                                        $totalValue = $row["value"];
+
+                                        echo "<tr>
+                                                <td>" .$league . "</td>
+                                                <td>" .$country . "</td>
+                                                <td>" .$clubCount . "</td>
+                                                <td>" .$totalValue . "</td>
+                                        </tr>";
+                                    }
+                                    echo "</tbody>";
+
+
+                                     ?>
                                 </tr>
                             </thead>
 
-                            <!--<#?php
 
-                                echo "<tbody style= 'text-align:left'>";
 
-                                $top10Leagues = "CREATE VIEW leagues_top10(name,nation,total_value,team_count,player_count,avg_age)
-                                AS SELECT organization_name, nation, total_value, team_count, player_count, avg_age
-                                FROM organization NATURAL JOIN (
-                                    SELECT organization_id,nation, SUM(transfer_budget)+SUM(wage_budget) AS total_value
-                                    FROM organization NATURAL JOIN standings NATURAL JOIN club
-                                    GROUP BY(organization_id, nation))
-                                NATURAL JOIN(
-                                    SELECT organization_id, COUNT(*) AS player_count, AVG(age) AS avg_age
-                                    FROM (organization NATURAL JOIN standings NATURAL JOIN club) JOIN player ON club_id=team
-                                    GROUP BY organization_id)
-                                WHERE division like 'league%'
-                                ORDER BY total_value DESC
-                                LIMIT 10";
 
-                                $result = mysqli_query($db, $top10Leagues);
-
-                                while($row = mysql_fetch_array($result, MYSQL_ASSOC)){
-                                    $league = $row["organization_name"];
-                                    $country = $row["nation"];
-                                    $clubCount = $row["team_count"];
-                                    $playerCount = $row["player_count"];
-                                    $averageAge = $row["avg_age"];
-                                    $totalValue = $row["total_value"]
-
-                                    echo "<tr>
-                                            <td>" .$league . "</td>
-                                            <td>" .$country . "</td>
-                                            <td>" .$clubCount . "</td>
-                                            <td>" .$playerCount . "</td>
-                                            <td>" .$averageAge . "</td>
-                                            <td>" .$totalValue . "</td>
-                                    </tr>";
-                                }
-                                echo "</tbody>";
-
-                            ?>-->
                         </table>
                     </div>
                 </div>

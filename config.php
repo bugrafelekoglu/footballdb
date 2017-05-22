@@ -2,7 +2,7 @@
    define('DB_SERVER', 'localhost');
    define('DB_USERNAME', 'root');
    define('DB_PASSWORD', 'umut');
-   define('DB_DATABASE', 'footballDB');
+   define('DB_DATABASE', 'footballDBnew');
    $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 
     if(mysqli_connect_errno()){
