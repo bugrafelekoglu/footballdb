@@ -67,9 +67,9 @@
                     <li><a href="#cups">CUPS</a></li>
 
                 </ul>
-                <form class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left" role="search" action="search_result.php" method="post">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" name="search" class="form-control" placeholder="Search">
                     </div>
                     <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon-search"></span> Find
@@ -79,27 +79,28 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>
                             <?php
-                                    
+
                                 $teamInfo = "SELECT * FROM club C, fan F, person P WHERE P.person_id = F.fan_id AND F.favourite_team = C.club_id AND email= '" .$_SESSION['user'] . "'";
                                 $resultInfo = mysqli_query($db, $teamInfo);
-                                $rowInfo = mysqli_fetch_array($resultInfo, MYSQL_ASSOC);
-                                    
+                                $rowInfo = mysqli_fetch_array($resultInfo, MYSQLI_ASSOC);
+
                                 /*$teamCoachQuery = "SELECT fullname, person_id FROM person WHERE email = '" .$_SESSION['user'] . "'";
                                 $result = mysqli_query($db, $teamCoachQuery);
-                                $row = mysqli_fetch_array($result, MYSQL_ASSOC);
+                                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                                 $teamCoachName = $row['fullname'];*/
-                            
+
                                 echo "" .$rowInfo["fullname"] . "</b> <span class='caret'></span></a>";
                             ?>
-                            
+
                             Snesky</b> <span class="caret"></span></a>
                         <ul class="dropdown-menu" style="padding: 10px; width:50%; text-align:right">
                             <div style="width: 100px; margin: 1px 10px 10px 20px">
-                                <button type="submit" class="btn btn-primary" style=" width:100px"><span class="glyphicon glyphicon-user" style="margin:1px 5px 1px 1px"></span> Profile</button>
-
+                                <form action="delete.php" method="post"
+                                <button type="submit" class="btn btn-primary"  style=" width:100px"><span class="glyphicon glyphicon-user" style="margin:1px 5px 1px 1px"></span> Delete</button>
+                            </form> 
                             </div>
                             <p></p>
-                            <form action="logout.php">
+                            <form action="logout.php" method="post">
                             <div style="width: 100px; margin: 1px 10px 10px 20px">
                                 <button type="submit" class="btn btn-danger" style=" width:100px"><span class="glyphicon glyphicon-log-out" style="margin:1px 5px 1px 1px"></span> Log out</button>
                             </div>
@@ -121,11 +122,11 @@
   border-radius: 10px ;
   z-index: -1;"></div>
         <div class="jumbotron" style="background: rgba(245, 245, 245, 0.6)">
-            <h1><span class="glyphicon glyphicon-heart" style="color: transparent;  border-style: outset; background: linear-gradient(to right, #000000 0%,#000000 50%,#2989d8 50%,#ffffff 50%,#ffffff 100%)"></span> <span style="text-decoration: underline"> 
+            <h1><span class="glyphicon glyphicon-heart" style="color: transparent;  border-style: outset; background: linear-gradient(to right, #000000 0%,#000000 50%,#2989d8 50%,#ffffff 50%,#ffffff 100%)"></span> <span style="text-decoration: underline">
                 <?php
                     echo "" .$rowInfo['club_name'] ."</span> </h1>";
                 ?>
-                
+
             <div class="row marketing">
                 <div class="col-lg-6">
                     <h3>City:</h3>
@@ -133,7 +134,7 @@
                         <?php
                             echo "<span class='label label-default'>" .$rowInfo['city'] . "'";
                         ?>
-                        
+
                     </h1>
                     <br>
 
@@ -146,7 +147,7 @@
                     <br>
                     <h3>Stadium:</h3>
                     <h2 style="font-size:50px">
-                        
+
                         <span class="label label-warning">
                             <?php
                                 echo "" .$rowInfo['stadium'] . "</span>";
@@ -168,11 +169,11 @@
                     <h2 style="font-size:50px">
                         <span class="label label-success">
                             <?php
-                                $teamCoachQuery = "SELECT P.fullname FROM club C, person P WHERE C.coach = P.person_id AND 
+                                $teamCoachQuery = "SELECT P.fullname FROM club C, person P WHERE C.coach = P.person_id AND
                                 club_name = '" .$rowInfo['club_name'] . "'";
-                                                    
+
                                 $result = mysqli_query($db, $teamCoachQuery);
-                                $row = mysqli_fetch_array($result, MYSQL_ASSOC);
+                                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                                 echo "" .$row['fullname'] . "";
                         ?>
                     </h2>
@@ -182,9 +183,9 @@
                         <span class="label label-primary">
                             <?php
                                 $clubDirectorQuery = "SELECT P.fullname FROM club C, person P WHERE C.director = P.person_id AND club_name = '" .$rowInfo['club_name'] . "'";
-                            
+
                                 $resultDirector = mysqli_query($db, $clubDirectorQuery);
-                                $rowDirector = mysqli_fetch_array($resultDirector, MYSQL_ASSOC);
+                                $rowDirector = mysqli_fetch_array($resultDirector, MYSQLI_ASSOC);
                                 echo "" .$rowDirector['fullname'] . "";
                             ?>
                     </h2>

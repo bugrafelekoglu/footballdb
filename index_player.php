@@ -82,7 +82,7 @@
                                 $result = mysqli_query($db, $playerQuery);
                                 $row = mysqli_fetch_array($result, MYSQL_ASSOC);
                                 $teamCoachName = $row['fullname'];
-                            
+
                                 echo "" . $teamCoachName .  "</b> <span class='caret'></span></a>";
                             ?>
                         <ul class="dropdown-menu" style="padding: 10px; text-align:right">
@@ -119,9 +119,9 @@
                     $teamInfo = "SELECT * FROM club C, player PL, person P WHERE P.person_id = PL.player_id AND PL.team = C.club_id AND email= '" .$_SESSION['user'] . "'";
                     $resultInfo = mysqli_query($db, $teamInfo);
                     $rowInfo = mysqli_fetch_array($resultInfo, MYSQL_ASSOC);
-                
+
                     echo "" .$rowInfo['club_name'] . "";
-                    
+
                 ?>
                 </h1>
             <div class="row marketing">
@@ -138,7 +138,7 @@
 
                     <h3>Country:</h3>
                     <h2 style="font-size:50px">
-                            
+
                         <span class="label label-danger">
                             <?php
                                 echo "" .$rowInfo['nation'] . "";
@@ -171,13 +171,13 @@
 
                     <h3>Team Coach:</h3>
                     <h2 style="font-size:50px">
-                        
-                        
+
+
                         <span class="label label-success">
                             <?php
-                            $teamCoachQuery = "SELECT P.fullname FROM club C, person P WHERE C.coach = P.person_id AND 
+                            $teamCoachQuery = "SELECT P.fullname FROM club C, person P WHERE C.coach = P.person_id AND
                                 club_name = '" .$rowInfo['club_name'] . "'";
-                                                    
+
                                 $result = mysqli_query($db, $teamCoachQuery);
                                 $row = mysqli_fetch_array($result, MYSQL_ASSOC);
                                 echo "" .$row['fullname'] . "";
@@ -190,7 +190,7 @@
                         <span class="label label-primary">
                             <?php
                                 $clubDirectorQuery = "SELECT P.fullname FROM club C, person P WHERE C.director = P.person_id AND club_name = '" .$rowInfo['club_name'] . "'";
-                            
+
                                 $resultDirector = mysqli_query($db, $clubDirectorQuery);
                                 $rowDirector = mysqli_fetch_array($resultDirector, MYSQL_ASSOC);
                                 echo "" .$rowDirector['fullname'] . "";

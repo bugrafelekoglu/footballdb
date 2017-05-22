@@ -1,3 +1,4 @@
+
 <?php
     include("config.php");
     session_start();
@@ -83,7 +84,7 @@
                             $result = mysqli_query($db, $clubDirectorQuery);
                             $row = mysqli_fetch_array($result, MYSQL_ASSOC);
                             $clubDirectorName = $row['fullname'];
-                        
+
                             echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'><b>" .$clubDirectorName . "</b> <span class='caret'></span></a>";
                         ?>
                         <ul class="dropdown-menu" style="padding: 10px; width:50%; text-align:right">
@@ -116,28 +117,28 @@
   border-radius: 10px ;
   z-index: -1;"></div>
         <div class="jumbotron" style="background: rgba(245, 245, 245, 0.6)">
-            <h1><span class="glyphicon glyphicon-heart" style="color: transparent;  border-style: outset; background: linear-gradient(to right, #193155 0%,#193155 50%,#2989d8 50%,#F3E508 50%,#F3E508 100%)"></span> <span style="text-decoration: underline"> 
-                
+            <h1><span class="glyphicon glyphicon-heart" style="color: transparent;  border-style: outset; background: linear-gradient(to right, #193155 0%,#193155 50%,#2989d8 50%,#F3E508 50%,#F3E508 100%)"></span> <span style="text-decoration: underline">
+
                 <?php
                     $teamNameQuery = "SELECT club_name FROM club WHERE director = '" .$row['person_id'] . "'";
                     $result = mysqli_query($db, $teamNameQuery);
                     $row = mysqli_fetch_array($result, MYSQL_ASSOC);
                     $clubName = $row['club_name'];
-                
+
                     echo "" .$clubName . "</span> <h1>";
                 ?>
-                
+
             <div class="row marketing">
                 <div class="col-lg-6">
                     <h3>City:</h3>
                     <h1 style="font-size:50px">
-                        
+
                         <?php
                             $cityQuery = "SELECT city FROM club WHERE club_name = '" .$clubName . "'";
                             $resultCity = mysqli_query($db, $cityQuery);
                             $rowCity = mysqli_fetch_array($resultCity, MYSQL_ASSOC);
                             $cityName = $rowCity['city'];
-                        
+
                             echo "<span class='label label-default'>" .$cityName . "</span>";
                         ?>
                     </h1>
@@ -150,7 +151,7 @@
                                 $resultCountry = mysqli_query($db, $countryQuery);
                                 $rowCountry = mysqli_fetch_array($resultCountry, MYSQL_ASSOC);
                                 $countryName = $rowCountry['nation'];
-                        
+
                                 echo "<span class='label label-danger'> " .$countryName . "</span>";
                             ?>
                     </h2>
@@ -162,7 +163,7 @@
                                 $resultStadium = mysqli_query($db, $stadiumQuery);
                                 $rowStadium = mysqli_fetch_array($resultStadium, MYSQL_ASSOC);
                                 $stadiumName = $rowStadium['stadium'];
-                        
+
                                 echo "<span class='label label-warning'> " .$stadiumName . "</span>";
                             ?>
                     </h2>
@@ -177,7 +178,7 @@
                                 $resultTeamValue = mysqli_query($db, $teamValueQuery);
                                 $rowTeamValue = mysqli_fetch_array($resultTeamValue, MYSQL_ASSOC);
                                 $teamValue = $rowTeamValue['transfer_budget'];
-                        
+
                                 echo "<span class='label label-info'> " .$teamValue . " Million € </span>";
                             ?>
                     </h2>
@@ -186,13 +187,13 @@
                     <h3>Team Coach:</h3>
                     <h2 style="font-size:50px">
                         <?php
-                                
-                                $teamCoachQuery = "SELECT P.fullname FROM club C, person P WHERE C.coach = P.person_id AND 
+
+                                $teamCoachQuery = "SELECT P.fullname FROM club C, person P WHERE C.coach = P.person_id AND
                                 club_name = '" .$clubName . "'";
                                 $resultTeamCoach = mysqli_query($db, $teamCoachQuery);
                                 $rowTeamCoach = mysqli_fetch_array($resultTeamCoach, MYSQL_ASSOC);
                                 $teamCoach = $rowTeamCoach['fullname'];
-                        
+
                                 echo "<span class='label label-success'> " .$teamCoach . "</span>";
                             ?>
                     </h2>
